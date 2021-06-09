@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Diary.Models;
 
-namespace Diary.Controllers
+namespace Diary.Context
 {
     public class DiaryContext : DbContext
     {
@@ -13,6 +13,11 @@ namespace Diary.Controllers
 
             protected override void OnConfiguring(DbContextOptionsBuilder options)
                 => options.UseSqlite(@"Data Source=diary.db");
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<DiaryModel>().HasData(new DiaryModel { Id=1, Title ="Test 1", Entry = "Wpisik jakiś", Day=2 });
+            modelBuilder.Entity<DiaryModel>().ToTable("DiaryTable");
+        }
 
     }
 }

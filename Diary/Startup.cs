@@ -1,3 +1,4 @@
+using Diary.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +16,10 @@ namespace Diary
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            using (var client = new DiaryContext())
+            {
+                client.Database.EnsureCreated();
+            }
         }
 
         public IConfiguration Configuration { get; }
@@ -22,6 +27,7 @@ namespace Diary
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddEntityFrameworkSqlite().AddDbContext<DiaryContext>();
             services.AddControllersWithViews();
         }
 

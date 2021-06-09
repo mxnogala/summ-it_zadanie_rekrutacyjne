@@ -7,7 +7,7 @@ namespace Diary.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "DiaryEntry",
+                name: "DiaryTable",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -18,14 +18,19 @@ namespace Diary.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DiaryEntry", x => x.Id);
+                    table.PrimaryKey("PK_DiaryTable", x => x.Id);
                 });
+
+            migrationBuilder.InsertData(
+                table: "DiaryTable",
+                columns: new[] { "Id", "Day", "Entry", "Title" },
+                values: new object[] { 1, 2, "Wpisik jakiś", "Test 1" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DiaryEntry");
+                name: "DiaryTable");
         }
     }
 }
