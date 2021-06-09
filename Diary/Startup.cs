@@ -28,6 +28,7 @@ namespace Diary
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddEntityFrameworkSqlite().AddDbContext<DiaryContext>();
+
             services.AddControllersWithViews();
         }
 

@@ -1,5 +1,6 @@
 ﻿using Diary.Context;
 using Diary.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,11 +18,59 @@ namespace Diary.Controllers
             _context = context;
         }
 
-            public async Task<ActionResult<IEnumerable<DiaryModel>>> Index()
-               {
-                   return  await _context.DiaryEntry.ToListAsync(); 
-               }
-        
+        public async Task<ActionResult<IEnumerable<DiaryModel>>> Index()
+        {
+            return View(await _context.DiaryEntry.ToListAsync());
+        }
+
+
+        [HttpGet("/diary/{id}")]
+        public async Task<ActionResult<DiaryModel>> GetEntry(int id)
+        {
+            var entry = await _context.DiaryEntry.FindAsync(id);
+
+            if (entry == null)
+            {
+                return NotFound();
+            }
+
+            return entry;
+        }
+
+        [HttpGet("Diary/Delete/{id}")]
+        public async Task<ActionResult<DiaryModel>> DeleteEntry(int id)
+        {
+            var entry = await _context.DiaryEntry.FindAsync(id);
+           if (entry == null)
+            {
+                return NotFound();
+            }
+
+            _context.DiaryEntry.Remove(entry);
+            await _context.SaveChangesAsync();
+         
+            return entry;
+        }
+
+        [HttpGet("/Diary/Create")]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<DiaryModel>> Save(DiaryModel diaryModel)
+        {
+            _context.DiaryEntry.Add(diaryModel);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("Create", new { id = diaryModel.Id }, diaryModel);
+        }
+
+
+
+
+
 
     }
 }

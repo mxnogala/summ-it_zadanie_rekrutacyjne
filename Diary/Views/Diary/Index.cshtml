@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Diary.Models.DiaryModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Diary entries";
 }
 
-<h1>Index</h1>
+<h1>Diary entries</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-outline-primary" asp-action="Create" method="post">Create New</a>
 </p>
 <table class="table">
     <thead>
