@@ -25,9 +25,12 @@ namespace Diary.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Entry")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

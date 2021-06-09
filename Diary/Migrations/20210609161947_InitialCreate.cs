@@ -12,8 +12,8 @@ namespace Diary.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(type: "TEXT", nullable: true),
-                    Entry = table.Column<string>(type: "TEXT", nullable: true),
+                    Title = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Entry = table.Column<string>(type: "TEXT", nullable: false),
                     Day = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

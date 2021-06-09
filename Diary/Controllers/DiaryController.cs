@@ -24,8 +24,8 @@ namespace Diary.Controllers
         }
 
 
-        [HttpGet("/diary/{id}")]
-        public async Task<ActionResult<DiaryModel>> GetEntry(int id)
+        [HttpGet("/Diary/Show/{id}")]
+        public async Task<ActionResult<DiaryModel>>Show(int id)
         {
             var entry = await _context.DiaryEntry.FindAsync(id);
 
@@ -34,11 +34,11 @@ namespace Diary.Controllers
                 return NotFound();
             }
 
-            return entry;
+            return View(entry);
         }
 
         [HttpGet("Diary/Delete/{id}")]
-        public async Task<ActionResult<DiaryModel>> DeleteEntry(int id)
+        public async Task<ActionResult<DiaryModel>> Delete(int id)
         {
             var entry = await _context.DiaryEntry.FindAsync(id);
            if (entry == null)
@@ -49,7 +49,7 @@ namespace Diary.Controllers
             _context.DiaryEntry.Remove(entry);
             await _context.SaveChangesAsync();
          
-            return entry;
+            return View(entry);
         }
 
         [HttpGet("/Diary/Create")]
@@ -64,7 +64,7 @@ namespace Diary.Controllers
             _context.DiaryEntry.Add(diaryModel);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("Create", new { id = diaryModel.Id }, diaryModel);
+            return View(diaryModel);
         }
 
 

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Diary.Migrations
 {
     [DbContext(typeof(DiaryContext))]
-    [Migration("20210609112753_InitialCreate")]
+    [Migration("20210609161947_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,9 +27,12 @@ namespace Diary.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Entry")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
